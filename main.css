@@ -10,7 +10,7 @@ body{
     overflow: hidden;
 }
 
-.navbar{
+nav{
     background: #0e1a40;
     border: 3px solid #5d5d5d;   
     color: #946b2d;
