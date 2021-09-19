@@ -1,0 +1,35 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #222f5b;  
+    color: #946b2d;
+    overflow: hidden;
+}
+
+.navbar{
+    background: #0e1a40;
+    border: 3px solid #5d5d5d;   
+    color: #946b2d;
+}
+
+nav img{
+    width:100px; 
+    height:75px; 
+}
+
+nav a{
+    font-weight: 1000;
+    font-size: larger;
+    color: #946b2d;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+nav a:hover{
+    text-decoration: none;
+    color: #5d5d5d;
+}
