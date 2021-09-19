@@ -111,8 +111,10 @@ function initScene(){
 }
 
 function onMouseClick(){
-  setTimeout(initScene, 000); 
-  }
+    if(mouse.y >= 0){
+        setTimeout(initScene, 000); 
+    }
+}
 
 function render(a) {
   requestAnimationFrame(render);
