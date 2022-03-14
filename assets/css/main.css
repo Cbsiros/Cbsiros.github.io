@@ -1,3 +1,6 @@
+/* Gold: #ffd700
+Royal Blue:#04225e  */
+
 @import url("fontawesome-all.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,600");
 
@@ -2355,7 +2358,7 @@ button:active,
 }
 
 #main > section.dark a {
-  color: #fff;
+  color: #ffd700;
   border-color: inherit;
 }
 
