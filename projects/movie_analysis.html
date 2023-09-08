@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Box Office Trends</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/portfolio.css" />
+		<noscript><link rel="stylesheet" href="assets/css/portfolio_noscript.css" /></noscript>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai-sublime.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+		<script>hljs.highlightAll();</script>
+	</head>
+
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../portfolio.html" class="logo">
+									<span class="symbol"></span><span class="title">Back to Portfolio</span>
+								</a>
+						</div>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Crafting the Most Successful Movie of All Time</h1>
+							<span class="image main"><img src="../images/movies_banner.jpg" alt="" /></span>
+							<p>The years of 2022 and 2023 will haunt the nightmares of major movie studios for decades to come. In addtion to the two union strikes grinding 
+								the industry to a halt, there have been a record breaking number of movie releases failing to turn a profit. It is estimated that Disney has lost 
+								a whopping <a href="https://www.youtube.com/watch?v=bNgbuv6wVPc" target="_blank"> $890 Million </a> on only eight movies released in the span of 
+								just 12 months! And Disney is certainly not alone. DreamWorks spent $70 Million on an animated movie called "Teenage Kraken" and only managed a 
+								poor $40 Million at the box office. And after a staggering 9 years of production hell, Warner Bros finally released "The Flash" on a $200 Million 
+								budget. In one of the biggest box office bombs of all time, it only managed to rake in $268 Million (more on why this is so dreadful later). 
+							</p>
+
+							<p>In light of the disaster that is Hollywood right now, I thought it would be a fun exercise to scientifically craft the most profitable film possible. 
+								Maybe the big studios will take my advice on their next movies! When they're allowed to film again, that is. Our experiment starts with a database 
+								of over 700,000 movies, which anybody can find here: <a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies" target="_blank"> 
+								Movies Daily Update Dataset </a>. This dataset includes twenty features, which we will have to whittle down until we are left with only the most important. 
+							</p>
+
+							<h3>Unimportant Features</h3>
+							<ul>
+								<li><b>id:</b> An identification number that comes from the creation of the database. This is not useful, as dataframes already index their contents. </li>
+								<li><b>original_language:</b> The language the film was made in. Normally this would be increadibly important, but as we are focusing on Hollywood, we're 
+									restricting our analysis to english movies. We will filter out non-english movies and then remove this feature. </li>
+								<li><b>overview:</b> A summary of the movie. As we are only looking for characteristics, this is not useful. </li>
+								<li><b>popularity:</b>A score given by the database website to each movie which represents acclaim. While this sounds like it would be helpful, we only 
+									care about profitibility in this experiment, not popularity. </li>
+								<li><b>production_companies:</b> A list of production companies involved in each film. Our perfect film should be studio-independent, so that anyone can 
+									profit from the work done here. &#128521;</li>
+								<li><b>status:</b> Indicates whether the movie has been released, is planned, has been cancelled, etc. Since we are focused on profitability, we will 
+									only keep released movies. </li>
+								<li><b>tagline:</b> The tagline of the movie. (Who could have guessed?) I'm already telling Hollywood how to make the perfect movie, I'm not marketng it for 
+								them too! </li>
+								<li><b>vote_average:</b> See popularity.</li>
+								<li><b>count:</b> See popularity.</li>
+								<li><b>poster_path:</b> A route to find the poster for the movie. As you can imagine, not useful. </li>
+								<li><b>backdrop_path:</b> See poster_path. </li>
+								<li><b>recommendations:</b> A list of id's for silimar movies. This could be interesting to derive for myself in a future project, but that's not why we're
+									here today. </li>
+							</ul>
+							Let's finally get to the data! We will import pandas, load our csv as a dataframe, and find out we start with exactly 722,714 movies: 
+<pre><code class="python">import pandas as pd
+movies_df = pd.read_csv('movies.csv')
+</code></pre>
+
+							We only want movies that are in english and that have been released. After filtering out everything else, we have 375,2315 movies left.  
+<pre><code class="python">english_movies_df = movies_df[movies_df['original_language'] == 'en']
+released_movies_df = english_movies_df[english_movies_df['status'] == 'Released']
+</code></pre>
+							And with one line of code, we are left with the features we will be analyzing. 
+							<pre><code class="python">feature_rich_movies_df = released_movies_df[['title', 'genres', 'release_date', 'budget', 'revenue', 'runtime', 'credits', 'keywords']]</code></pre>							
+
+
+													
+						</div>
+					</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/portfolio.js"></script>
+			<script src="/path/to/highlight.min.js"></script>
+
+			<script>hljs.highlightAll();</script>
+
+	</body>
+</html>
