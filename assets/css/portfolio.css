@@ -120,7 +120,7 @@ input, select, textarea {
 	body, input, select, textarea {
 		color: var(--text);
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
-		font-size: 16pt;
+		font-size: 14pt;
 		font-weight: 300;
 		line-height: 1.75;
 	}
@@ -271,7 +271,7 @@ input, select, textarea {
 	code {
 		background: var(--code_blue) !important;
 		font-family: "Courier New", monospace;
-		font-size: 1.1em;
+		font-size: 1em;
 		max-width: 68em;
     	margin: 0 auto;
     	padding: 0em!important;
@@ -2084,9 +2084,16 @@ input, select, textarea {
 		position: relative;
 	}
 
+	.image.center{
+		margin-left: auto;
+		margin-right: auto;
+	}
+
 		.image img {
 			border-radius: 4px;
 			display: block;
+			margin-left: auto;
+			margin-right: auto;
 		}
 
 		.image.left, .image.right {
@@ -2118,6 +2125,12 @@ input, select, textarea {
 			.image.fit img {
 				width: 100%;
 			}
+		
+		.image.half {
+			display: block;
+			margin: 1em 0em;
+			width: 50%;;
+		}
 
 		.image.main {
 			display: block;
@@ -2535,7 +2548,7 @@ input, select, textarea {
 		width: 100%;
 		max-width: 68em;
 		margin: 0 auto;
-		padding: 0 5em;
+		padding: 0 10em;
 	}
 
 		@media screen and (max-width: 736px) {

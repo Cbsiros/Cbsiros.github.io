@@ -34,8 +34,8 @@
 						<div class="inner">
 							<h1>Crafting the Most Successful Movie of All Time</h1>
 							<span class="image main"><img src="../images/movies_banner.jpg" alt="" /></span>
-							<p>The years of 2022 and 2023 will haunt the nightmares of major movie studios for decades to come. In addtion to the two union strikes grinding 
-								the industry to a halt, there have been a record breaking number of movie releases failing to turn a profit. It is estimated that Disney has lost 
+							<p>The years of 2022 and 2023 will haunt the nightmares of major movie studios for decades to come. Not only are two unions striking (effectively grinding 
+								the industry to a halt), a record number of movie releases have failed to turn a profit. It is estimated that Disney has lost 
 								a whopping <a href="https://www.youtube.com/watch?v=bNgbuv6wVPc" target="_blank"> $890 Million </a> on only eight movies released in the span of 
 								just 12 months! And Disney is certainly not alone. DreamWorks spent $70 Million on an animated movie called "Teenage Kraken" and only managed a 
 								poor $40 Million at the box office. And after a staggering 9 years of production hell, Warner Bros finally released "The Flash" on a $200 Million 
@@ -44,45 +44,71 @@
 
 							<p>In light of the disaster that is Hollywood right now, I thought it would be a fun exercise to scientifically craft the most profitable film possible. 
 								Maybe the big studios will take my advice on their next movies! When they're allowed to film again, that is. Our experiment starts with a database 
-								of over 700,000 movies, which anybody can find here: <a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies" target="_blank"> 
+								of 722,714 movies, which anybody can find here: <a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies" target="_blank"> 
 								Movies Daily Update Dataset </a>. This dataset includes twenty features, which we will have to whittle down until we are left with only the most important. 
 							</p>
 
-							<h3>Unimportant Features</h3>
+							<h3>Features That Will Be Dropped</h3>
 							<ul>
-								<li><b>id:</b> An identification number that comes from the creation of the database. This is not useful, as dataframes already index their contents. </li>
-								<li><b>original_language:</b> The language the film was made in. Normally this would be increadibly important, but as we are focusing on Hollywood, we're 
-									restricting our analysis to english movies. We will filter out non-english movies and then remove this feature. </li>
-								<li><b>overview:</b> A summary of the movie. As we are only looking for characteristics, this is not useful. </li>
-								<li><b>popularity:</b>A score given by the database website to each movie which represents acclaim. While this sounds like it would be helpful, we only 
-									care about profitibility in this experiment, not popularity. </li>
+								<li><b>id:</b> An identification number that comes from the creation of the database. Not very useful to us.  </li>
+								<li><b>original_language:</b> The language the film was made in. As we are focusing on just Hollywood, we're restricting our analysis to english movies. 
+									We will filter out non-english movies and then remove this feature. </li>
+								<li><b>overview:</b> A summary of the movie. As we are looking for characteristics, this is not helpful. </li>
+								<li><b>popularity:</b> A score given by the database which represents acclaim. While this sounds beneficial, we only care about profitibility in this 
+									experiment, not popularity. </li>
 								<li><b>production_companies:</b> A list of production companies involved in each film. Our perfect film should be studio-independent, so that anyone can 
 									profit from the work done here. &#128521;</li>
-								<li><b>status:</b> Indicates whether the movie has been released, is planned, has been cancelled, etc. Since we are focused on profitability, we will 
+								<li><b>status:</b> Indicates whether the movie has been released, is planned, has been cancelled, etc. Since we are analyzing profits, we will 
 									only keep released movies. </li>
-								<li><b>tagline:</b> The tagline of the movie. (Who could have guessed?) I'm already telling Hollywood how to make the perfect movie, I'm not marketng it for 
-								them too! </li>
+								<li><b>tagline:</b> The tagline of the movie. (Who could have guessed?) I'm already telling Hollywood how to make the perfect movie, I'm not marketing it 
+									for them too! </li>
 								<li><b>vote_average:</b> See popularity.</li>
-								<li><b>count:</b> See popularity.</li>
+								<li><b>vote_count:</b> See popularity.</li>
 								<li><b>poster_path:</b> A route to find the poster for the movie. As you can imagine, not useful. </li>
+								<li><b>keywords:</b> A list of words/phrases that describe the movie. </li>
 								<li><b>backdrop_path:</b> See poster_path. </li>
 								<li><b>recommendations:</b> A list of id's for silimar movies. This could be interesting to derive for myself in a future project, but that's not why we're
 									here today. </li>
 							</ul>
-							Let's finally get to the data! We will import pandas, load our csv as a dataframe, and find out we start with exactly 722,714 movies: 
-<pre><code class="python">import pandas as pd
-movies_df = pd.read_csv('movies.csv')
-</code></pre>
-
-							We only want movies that are in english and that have been released. After filtering out everything else, we have 375,2315 movies left.  
-<pre><code class="python">english_movies_df = movies_df[movies_df['original_language'] == 'en']
-released_movies_df = english_movies_df[english_movies_df['status'] == 'Released']
-</code></pre>
-							And with one line of code, we are left with the features we will be analyzing. 
-							<pre><code class="python">feature_rich_movies_df = released_movies_df[['title', 'genres', 'release_date', 'budget', 'revenue', 'runtime', 'credits', 'keywords']]</code></pre>							
-
-
-													
+							
+							<p style="margin:0;">
+							Once we filter our data for english movies that have been released and drop the extraneous columns, we can focus on the features that will actually impact 
+								our analysis. Let's take a closer look at them right now. The first item of business is to inspect our three numerical features: budget, revenue, 
+								and runtime, which we can do with the describe() function.
+								<span class="image half"><img src="../images/movie_analysis/describe1.png" alt="" /></span>
+							Wow, does this data need some work. 
+								<ul>
+									<li>To start, lets limit our movies to between 
+										<a href="https://www.oscars.org/sites/oscars/files/96o_complete_rules.pdf" target="_blank">40 minutes</a> (according to the Oscar's eligibility 
+										rules) and 
+										<a href="https://www.dexerto.com/tv-movies/what-is-the-longest-movie-ever-made-marvel-harry-potter-disney-star-wars-more-2012837/#:~:text=While%20the%20Guinness%20World%20Records%20say%20the%20longest%20movie%20ever%20made%20is%201987%E2%80%99s%20The%20Cure%20of%20Insomnia%2C%20it%E2%80%99s%20actually%20Amra%20Ekta%20Cinema%20Banabo%2C%20also%20known%20as%20The%20Innocence.%C2%A0" target="_blank">1265 minutes</a> (longest theatrical movie ever made).
+									</li>
+									<li>A quick google search shows that the largest all time budget for a movie is 
+										<a href="https://boardroom.tv/most-expensive-movies-ever-made-avatar-marvel/" target="_blank">$460 million</a>,
+										which means we have to take care of the inaccuracy in that column. I could not find a budget for the 2013 movie "DeAD", so I dropped the single 
+										row, as that shouldn't affect the analysis.
+									</li>
+									<li>Next, we take care of the lower bounds of budget and revenue, which are filled with errors. So many in fact, that I cannot go through 
+										them all by hand. To combat this, I am cutting off any movie that has a budget lower than 
+										<a href="https://movieweb.com/cheapest-movies-ever-made" target="_blank">$218</a>, as any studio could more than afford to fund such a film. 
+									</li>
+									<li>
+										On the flip side, I'm going to restrict our data set to movies that have made over 1 million dollars. This is an arbitrary number and can be 
+										adjusted, but I felt it was a nice breakpoint to ensure that all movies we analyze had even a modicum of success.  
+									</li>
+									<li>
+										Finally, we have to look at all null values still present in the data. Due to the small amount of nulls present (less than 1%), I have elected 
+										to drop all null rows. At least we have uber-clean data now, right?   
+									</li>
+								</ul>
+								Now, we have just one more step before the cool graphs, I promise! It is generally agreed that a movie must make 
+								<a href="https://gizmodo.com/how-much-money-does-a-movie-need-to-make-to-be-profitab-5747305#:~:text=a%20rule%20of%20thumb%20seems%20to%20be%20that%20the%20film%20needs%20to%20make%20twice%20its%20production%20budget%20globally." target="_blank">
+									twice it's budget in revenue to be profitable</a>, so I will be adding a column to denote whether a movie has passed this threshold. Using this new
+									feature, I can make a graph like this: 
+							</p>
+							<span class="image center"><img src="../images/movie_analysis/budget_vs_revenue.png" alt="" /></span>
+						
+										
 						</div>
 					</div>
 		</div>

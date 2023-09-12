@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
 
 :root {
-	--lineColor: #00c2fd;
+	--lineColor: #ffffff;
 	--small-text: #ffffff;
 	--titles: #DA9100;
 	--button-bg: #835700;
@@ -778,7 +778,7 @@ input, select, textarea {
 			-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out;
 			-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out;
 			transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out;
-			background-image: url("../../images/index2.jpg");
+			background-image: url("../../images/home_bg.jpeg");
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
