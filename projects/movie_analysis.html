@@ -35,7 +35,7 @@
 							<h1>Crafting the Most Successful Movie of All Time</h1>
 							<span class="image main"><img src="../images/movies_banner.jpg" alt="" /></span>
 							<p>The years of 2022 and 2023 will haunt the nightmares of major movie studios for decades to come. Not only are two unions striking (effectively grinding 
-								the industry to a halt), a record number of movie releases have failed to turn a profit. It is estimated that Disney has lost 
+								the industry to a halt), a record number of movie releases have failed to turn a profit. It's estimated that Disney has lost 
 								a whopping <a href="https://www.youtube.com/watch?v=bNgbuv6wVPc" target="_blank"> $890 Million </a> on only eight movies released in the span of 
 								just 12 months! And Disney is certainly not alone. DreamWorks spent $70 Million on an animated movie called "Teenage Kraken" and only managed a 
 								poor $40 Million at the box office. And after a staggering 9 years of production hell, Warner Bros finally released "The Flash" on a $200 Million 
@@ -44,7 +44,7 @@
 
 							<p>In light of the disaster that is Hollywood right now, I thought it would be a fun exercise to scientifically craft the most profitable film possible. 
 								Maybe the big studios will take my advice on their next movies! When they're allowed to film again, that is. Our experiment starts with a database 
-								of 722,714 movies, which anybody can find here: <a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies" target="_blank"> 
+								of movies, which anybody can find here: <a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies" target="_blank"> 
 								Movies Daily Update Dataset </a>. This dataset includes twenty features, which we will have to whittle down until we are left with only the most important. 
 							</p>
 
@@ -64,6 +64,7 @@
 									for them too! </li>
 								<li><b>vote_average:</b> See popularity.</li>
 								<li><b>vote_count:</b> See popularity.</li>
+								<li><b>credts:</b> A list of actors involved with the film. </li>
 								<li><b>poster_path:</b> A route to find the poster for the movie. As you can imagine, not useful. </li>
 								<li><b>keywords:</b> A list of words/phrases that describe the movie. </li>
 								<li><b>backdrop_path:</b> See poster_path. </li>
@@ -72,10 +73,10 @@
 							</ul>
 							
 							<p style="margin:0;">
-							Once we filter our data for english movies that have been released and drop the extraneous columns, we can focus on the features that will actually impact 
-								our analysis. Let's take a closer look at them right now. The first item of business is to inspect our three numerical features: budget, revenue, 
-								and runtime, which we can do with the describe() function.
-								<span class="image half"><img src="../images/movie_analysis/describe1.png" alt="" /></span>
+							Once we filter our data to only inlcude english movies that have been released, we drop the extraneous columns and then focus on the 
+								features that will actually impact our analysis. The first item of business is to 
+								inspect our three numerical features: budget, revenue, and runtime, which we can do with the describe() function.
+								<span class="image half center"><img src="../images/movie_analysis/describe1.png" alt="" /></span>
 							Wow, does this data need some work. 
 								<ul>
 									<li>To start, lets limit our movies to between 
@@ -101,12 +102,22 @@
 										to drop all null rows. At least we have uber-clean data now, right?   
 									</li>
 								</ul>
+							</p>
+							<p style="margin: 0;">
+								Next on the list is the conversion of our release_date and genre features! Both of these features started as a string (a group of
+								characters) with individual entries separated by dashes. It will be much easier to work with the release_date data if we convert it
+								to a datetime object. Likewise, it will be much easier to work with the genre data if we convert each entry into its own list. <br> <br>
 								Now, we have just one more step before the cool graphs, I promise! It is generally agreed that a movie must make 
 								<a href="https://gizmodo.com/how-much-money-does-a-movie-need-to-make-to-be-profitab-5747305#:~:text=a%20rule%20of%20thumb%20seems%20to%20be%20that%20the%20film%20needs%20to%20make%20twice%20its%20production%20budget%20globally." target="_blank">
-									twice it's budget in revenue to be profitable</a>, so I will be adding a column to denote whether a movie has passed this threshold. Using this new
-									feature, I can make a graph like this: 
+									twice it's budget in revenue to be profitable</a>, so I will be adding a column to denote whether a movie has passed this 
+									threshold. This is what our data looks like now that we're done processing it: 
+									<span class="image main"><img src="../images/movie_analysis/head2.png" alt="" /></span>
+									Using this new feature, I can make a graph like this! 
 							</p>
-							<span class="image center"><img src="../images/movie_analysis/budget_vs_revenue.png" alt="" /></span>
+							<span class="image center graph" ><img src="../images/movie_analysis/budget_vs_revenue.png" alt="" /></span>
+							<span class="image center graph" ><img src="../images/movie_analysis/runtimes_vs_revenue.png" alt="" /></span>
+							<span class="image center graph" ><img src="../images/movie_analysis/successful_movies_in_each_month.png" alt="" /></span>
+							<span class="image center graph" ><img src="../images/movie_analysis/successful_movies_in_each_genre.png" alt="" /></span>
 						
 										
 						</div>

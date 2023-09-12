@@ -169,11 +169,12 @@ input, select, textarea {
 	}
 
 	h1 {
-		font-size: 2.75em;
+		font-size: 2.6em;
 		font-weight: 700;
 		line-height: 1.3;
 		margin: 0 0 0.5em 0;
 		letter-spacing: -0.035em;
+		text-align: center;
 	}
 
 		h1 a {
@@ -2084,16 +2085,11 @@ input, select, textarea {
 		position: relative;
 	}
 
-	.image.center{
-		margin-left: auto;
-		margin-right: auto;
-	}
-
 		.image img {
 			border-radius: 4px;
 			display: block;
-			margin-left: auto;
-			margin-right: auto;
+			margin: auto;
+			margin-bottom: 1em;
 		}
 
 		.image.left, .image.right {
@@ -2125,12 +2121,28 @@ input, select, textarea {
 			.image.fit img {
 				width: 100%;
 			}
-		
+
 		.image.half {
 			display: block;
-			margin: 1em 0em;
-			width: 50%;;
+			margin: 0 0 2em 0;
+			width: 50%;
 		}
+		
+		.image.center {
+			margin: auto;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			  
+		}
+		.image.graph img{
+			width: 75%;
+			  
+		}
+			.image.main img {
+				width: 10em;
+			}
 
 		.image.main {
 			display: block;
