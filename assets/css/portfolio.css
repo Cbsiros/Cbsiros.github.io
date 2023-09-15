@@ -148,7 +148,6 @@ input, select, textarea {
 		transition: border-bottom-color 0.2s ease, color 0.2s ease;
 		text-decoration: none;
 		color: #DA9100;
-		border-bottom: dotted 1px rgba(88, 88, 88, 0.5);
 	}
 
 		a:hover {
@@ -2497,36 +2496,7 @@ input, select, textarea {
 
 	#header {
 		padding: 4em 0 0.1em 0 ;
-	}
-
-		#header .logo {
-			display: block;
-			border-bottom: 0;
-			color: inherit;
-			font-weight: 900;
-			letter-spacing: 0.35em;
-			margin: 0 0 2.5em 0;
-			text-decoration: none;
-			text-transform: uppercase;
-			display: inline-block;
-		}
-
-			#header .logo > * {
-				display: inline-block;
-				vertical-align: middle;
-			}
-
-			#header .logo .symbol {
-				margin-right: 0.65em;
-			}
-
-				#header .logo .symbol img {
-					display: block;
-					width: 2em;
-					height: 2em;
-				}
-
-		
+	}		
 
 		@media screen and (max-width: 736px) {
 
@@ -2557,6 +2527,12 @@ input, select, textarea {
 /* Wrapper */
 
 	#wrapper > * > .inner {
+		width: 100%;
+		max-width: 68em;
+		margin: 0 auto;
+		padding: 0 5em;
+	}
+	#wrapper > * > .blog {
 		width: 100%;
 		max-width: 68em;
 		margin: 0 auto;
