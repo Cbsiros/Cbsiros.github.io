@@ -2088,7 +2088,7 @@ input, select, textarea {
 			border-radius: 4px;
 			display: block;
 			margin: auto;
-			margin-bottom: 1em;
+			margin-bottom: 2em;
 		}
 
 		.image.left, .image.right {
@@ -2542,7 +2542,7 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			#wrapper > * > .blog {
-				padding: 0;
+				padding: 0 0.5em;
 			}
 
 		}
