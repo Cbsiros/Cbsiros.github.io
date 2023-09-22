@@ -2160,6 +2160,21 @@ input, select, textarea {
 				}
 
 			}
+/* Cover */
+
+.cover {
+	border-radius: 4px;
+	border: 0;
+	display: inline-block;
+	position: relative;
+}
+
+	.cover img {
+		border-radius: 4px;
+		display: block;
+		margin: auto;
+	}
+
 
 /* Table */
 
@@ -2268,6 +2283,8 @@ input, select, textarea {
 				.tiles article > .image img {
 					display: block;
 					width: 100%;
+					aspect-ratio: 1 / 1;
+					margin-bottom: 0;
 				}
 
 				.tiles article > .image:before {
