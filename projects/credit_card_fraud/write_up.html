@@ -58,21 +58,21 @@
 								looked up. 
 							</p>
 
-							<p style="margin: 0;">Now that we have a general idea of the variables we will be looking at, let's take a closer look at our data. I started off by calling the pandas function 
-								describe(), which gives a thourough statistical analysis of our dataframe. The only interesting aspect I found was that our V1 through V28 columns all have 
-								a standard deviation of 1, clearly a result of the anonymization process. There are no null or mismatched values either. I also looked at the number of 
-								occurances of each transaction type, which can be seen below. There are exactly 284,315 transactions of each type, giving us a perfectly balanced dataset. 
-								This is an important aspect to consider, as not all classification algorithms can handle unbalanced data. Since this data is a balanced as can be, we have 
-								no restrictions on the algorithm we use. 
+							<p style="margin: 0;">Now that we have a general idea of the variables we will be looking at, let's take a closer look at our data. I started off by calling the
+								pandas function describe(), which gives a thourough statistical analysis of our dataframe. The only interesting aspect I found was that our V1 through V28 
+								columns all have a standard deviation of 1, clearly a result of the anonymization process. There are no null or mismatched values either. I also looked at 
+								the number of occurances of each transaction type, which can be seen below. There are exactly 284,315 transactions of each type, giving us a perfectly 
+								balanced dataset. This is an important aspect to consider, as not all classification algorithms can handle unbalanced data. Since this data is a balanced as
+								can be, we have no restrictions on the algorithm we use. 
 								<span class="image center graph"><img src="../../images/credit_card_fraud/data_exploration_1.png" alt="" /></span>
 							</p>
 
-							<p style="margin: 0;">Next, I created a correlation matrix. This is a common technique used to determine if any two features have a high correlation to each other. We check for 
-								this condition because highly correlated features add complexity without adding new information. The machine learning model has another variable to look at,
-								which exponentially increases the number of patterns it needs to check, while not adding value. If two features are highly correlated, one feature can 
-								pretty accurately predict what the other will contain. Not useful for finding meaningful patterns. Also of note, some models have trouble when two or more 
-								features are highly correlated. Below is the correlation matrix for our credit card data. While there is some correlation in the V1 through V18 features, 
-								nothing quite reaches the recomended threshold for removal. 
+							<p style="margin: 0;">Next, I created a correlation matrix. This is a common technique used to determine if any two features have a high correlation to each 
+								other. We check for this condition because highly correlated features add complexity without adding new information. The machine learning model has another 
+								variable to look at, which exponentially increases the number of patterns it needs to check, while not adding value. If two features are highly correlated, 
+								one feature can pretty accurately predict what the other will contain. Not useful for finding meaningful patterns. Also of note, some models have trouble 
+								when two or more features are highly correlated. Below is the correlation matrix for our credit card data. While there is some correlation in the V1 through 
+								V18 features, nothing quite reaches the recomended threshold for removal. 
 								<span class="image center graph"><img src="../../images/credit_card_fraud/data_exploration_2.png" alt="" /></span>
 							</p>
 
@@ -82,34 +82,36 @@
 								uses to learn which parameters to use) and the testing set (which we use to determine how well the model has learned.) Thanks to scikit-learn, this process
 								is quite easy. Now we have our two sets. with 80% belonging to training, and 20% belonging to testing.
 							</p>
-							<p>We can finally get to the fun part! I've chosen to attempt to solve this binary classification problem with a Random Forest Classifier. Random Forest are 
-								great models, as their ensemble nature reduces the chance of overfitting, which is a common issue with single Decision Trees. After training the model, I 
-								extracted a random tree so that I could get a small sense of what it was doing. 
+							<p style="margin: 0;">We can finally get to the fun part! I've chosen to attempt to solve this binary classification problem with a Random Forest Classifier. 
+								Random Forests are an ensemble machince learning model made by building a bunch of smaller decision trees and letting them vote on the answer. Random 
+								Forests are great models, as their ensemble nature reduces the chance of overfitting, which is a common issue with single Decision Trees. After training 
+								the model, I extracted one tree so that I could get a small sense of what it was doing. Due to how many layers this tree has, I was only able to show the 
+								first two! This still gives a good impression of what a decision tree does. Based on a specific condition, the dataset is split into two. This will continue 
+								until the tree reaches a lead node, or the end of a branch. At that point the tree can predict which class the datapoint belongs to. 
 								<span class="image center graph"><img src="../../images/credit_card_fraud/decision_tree.png" alt="" /></span>
 							</p>
-<!--
-<pre><code class="python"> n = 11
- for i in range (n, 0, -1):
- print((n-i) * ' ' + i * '*')
-</code></pre>
-							<h3>References:</h3>
-						<ul>
-							<li>
-								<a href="https://kanoki.org/2020/08/30/matplotlib-scatter-plot-color-by-category-in-python/" target="_blank">How to create scatter plots with specific colors based on categories</a>
-							</li>
-							<li>
-								<a href="https://www.geeksforgeeks.org/filter-pandas-dataframe-with-multiple-conditions/#" target="_blank">How to filter a dataframe by multiple conditions with one command</a>
-							</li>
-							<li>
-								<a href="https://www.geeksforgeeks.org/create-a-stacked-bar-plot-in-matplotlib/#" target="_blank">How to create a stacked bar plot in Matplotlib</a>
-							</li>
-							<li>
-								<a href="https://www.pythoncharts.com/matplotlib/stacked-bar-charts-labels/" target="_blank">How to add labels to a stacked bar chart</a>
-							</li>
-							<li>
-								<a href="https://www.geeksforgeeks.org/plot-a-vertical-line-in-matplotlib/" target="_blank">How to plot vertical lines in Matplotlib</a>
-							</li>
-						</ul> -->
+							<p style="margin: 0;">Now that we've built our model, it's time to test it. Remember how we split our dataset earlier? We can bring that back into play by 
+								comparing how well our model predicts the class of each datapoint to the real answer. When we do that, we see an accuracy of %99.988. This is an amazing 
+								result! To get another sense of what is happening, we can plot the "importance" of each feature, averaged across every decision tree. Despite not knowing
+								what each feature corresponds to, we can clearly see that V10, V4, and V14 had the most effect on the forest. 
+								<span class="image center graph"><img src="../../images/credit_card_fraud/feature_importance_1.png" alt="" /></span>
+							</p>
+							<p style="margin: 0;">Conversly, the Amount feature has very little, if any, effect on the forest. I tired retraining the model after removing said feature,
+								but the accuracy dropped from 99.988% to 99.986%. This is a drop in accuracy, however minimal, so we will keep the Amount feature moving forward. The 
+								last step of this project is a more detailed look at the results of our model. For that, I created a confusion matrix. This graph shows the number of
+								accurate and innaccurate predcictions. From this graph, we can plot accuracy (99.988%), precision (99.975%), and recall (100.0%). I am extremely happy 
+								with these results. 
+								<span class="image center graph"><img src="../../images/credit_card_fraud/confusion_matrix.png" alt="" /></span>
+							</p>
+
+							<h3>Impact:</h3>
+							<p>
+								The impact of this research is of vital importantance to the financial security of institutions and customers alike. Real-time, accurate fraud detection 
+								protects individuals from potential financial loss but also shields financial institutions from billions of dollars in damages. Moreover, it showcases the 
+								power of data science and machine learning in mitigating evolving cyber threats. By understanding the patterns of fraudulent transactions, we not only 
+								strengthen our financial systems but also reinforce trust in digital commerce. This research is a frontline defense in a high-stakes game, ensuring the 
+								continued reliability of our financial transactions and the security of our financial well-being. One day I hope to actually contribute in this fight. 
+							</p>
 
 						<h3>References:</h3>
 							<ul>
