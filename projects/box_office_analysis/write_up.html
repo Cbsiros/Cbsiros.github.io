@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Box Office Trends</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../../assets/css/write_up.css" />
+		<link rel="icon" href="../../images/favicon.ico">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai-sublime.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+		<script>hljs.highlightAll();</script>
+	</head>
+
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+				<header id="header" style="padding: 0;">
+					<div class="inner">
+
+						<!-- Home Link -->
+						<a href="../../index.html"><i class="icon solid fa-long-arrow-alt-left fa-2x"></i></a>
+					</div>
+				</header>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="blog">
+							<h1>Crafting the Most Successful Movie of All Time</h1>
+							<span class="image main"><img src="../../assets/images/box_office_analysis/movies_banner.jpg" alt="" /></span>
+
+							<p>The years of 2022 and 2023 will haunt the nightmares of major movie studios for decades to come. Not only are two unions striking (effectively grinding 
+								the industry to a halt), a record number of movie releases have failed to turn a profit. It's estimated that Disney has lost 
+								a whopping <a href="https://www.youtube.com/watch?v=bNgbuv6wVPc" target="_blank"> $890 Million </a> on only eight movies released in the span of 
+								just 12 months! And Disney is certainly not alone. DreamWorks spent $70 Million on an animated movie called "Teenage Kraken" and only managed a 
+								poor $40 Million at the box office. And after a staggering 9 years of production hell, Warner Bros finally released "The Flash" on a $200 Million 
+								budget. In one of the biggest box office bombs of all time, it only managed to rake in $268 Million (more on why this is so dreadful later). 
+							</p>
+
+							<p>In light of the disaster that is Hollywood right now, I thought it would be a fun exercise to scientifically craft the most profitable film possible. 
+								Maybe the big studios will take my advice on their next movies! When they're allowed to film again, that is. Our experiment starts with a database 
+								of movies, which anybody can find here: <a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies" target="_blank"> 
+								Movies Daily Update Dataset </a>. 
+							</p>
+							<p style="margin:0;">Our first order of business is data exploration and data cleaning. And wow, does this data need some work.
+								<ul>
+									<li>
+										We start by filtering our data to only include english movies, as we are focusing on the Hollywood industry.
+									</li>
+									<li>
+										Similarly, we will filter the data to only include movies that have actually been released, as movies need to have been released 
+										to make a profit.
+									</li>
+									<li>
+										Next, lets limit our movies to between 
+										<a href="https://www.oscars.org/sites/oscars/files/96o_complete_rules.pdf" target="_blank">40 minutes</a> (according to the Oscar's eligibility 
+										rules for the length of a movie) and 
+										<a href="https://www.dexerto.com/tv-movies/what-is-the-longest-movie-ever-made-marvel-harry-potter-disney-star-wars-more-2012837/#:~:text=While%20the%20Guinness%20World%20Records%20say%20the%20longest%20movie%20ever%20made%20is%201987%E2%80%99s%20The%20Cure%20of%20Insomnia%2C%20it%E2%80%99s%20actually%20Amra%20Ekta%20Cinema%20Banabo%2C%20also%20known%20as%20The%20Innocence.%C2%A0" target="_blank">1265 minutes</a> (longest theatrical movie ever made).
+									</li>
+									<li>
+										Now we take care of the upper and lower bounds for budget, which are filled with errors. So many in fact, that I cannot go through 
+										them all by hand. To combat this, I am cutting off any movie that has a budget lower than 
+										<a href="https://movieweb.com/cheapest-movies-ever-made" target="_blank">$218</a>, as any studio could more than afford to fund such a film. I am
+										also cutting off any movie with a budget larger than <a href="https://boardroom.tv/most-expensive-movies-ever-made-avatar-marvel/" target="_blank">
+											$460 million</a>, as a quick google search shows that this is the all-time largest budget for a movie.
+									</li>
+									<li>
+										On the flip side, I'm going to restrict our data set to movies that have made over 1 million dollars. This is an arbitrary cut-off point and 
+										can be adjusted, but I felt it was a nice breakpoint to ensure that all movies we analyze had even a modicum of success.  
+									</li>
+									<li>
+										Finally, we have to look at all null values still present in the data. Due to the fact that most of the nulls present are from features I 
+										intend to drop (the remaining nulls make up less than 1% of our datapoints) I have elected to drop all null rows. At least we have uber-clean 
+										data now, right?   
+									</li>
+								</ul>
+							</p>
+
+							<h3>Features That Will Be Dropped</h3>
+							<ul>
+								<li><b>id:</b> An identification number that comes from the creation of the database. Not very useful to us.  </li>
+								<li><b>original_language:</b> The language the film was made in. As discussed, we can now drop this column due to it only containing english movies. </li>
+								<li><b>overview:</b> A summary of the movie. As we are looking for characteristics, this is not helpful. </li>
+								<li><b>popularity:</b> A score given by the database which represents acclaim. While this sounds beneficial, we only care about profitibility in this 
+									experiment, not popularity. </li>
+								<li><b>production_companies:</b> A list of production companies involved in each film. Our perfect film should be studio-independent, so that anyone can 
+									profit from the work done here. &#128521;</li>
+								<li><b>status:</b> Indicates whether the movie has been released, is planned, has been cancelled, etc. As discussed, we can now drop this column due to 
+									it only containing released movies. </li>
+								<li><b>tagline:</b> The tagline of the movie. (Who could have guessed?) I'm already telling Hollywood how to make the perfect movie, I'm not marketing it 
+									for them too! </li>
+								<li><b>vote_average:</b> See popularity.</li>
+								<li><b>vote_count:</b> See popularity.</li>
+								<li><b>credts:</b> A list of actors involved with the film. </li>
+								<li><b>poster_path:</b> A route to find the poster for the movie. As you can imagine, not useful. </li>
+								<li><b>keywords:</b> A list of words/phrases that describe the movie. </li>
+								<li><b>backdrop_path:</b> See poster_path. </li>
+								<li><b>recommendations:</b> A list of id's for silimar movies. This could be interesting to derive for myself in a future project, but that's not why we're
+									here today. </li>
+							</ul>
+							
+							<p style="margin: 0;">
+								Next on the list is the conversion of our release_date and genre features! Both of these features started as a string with individual entries separated 
+								by dashes. It will be much easier to work with the release_date data if we convert it to a datetime object. Likewise, it will be much easier to work with 
+								the genre data if we convert the string to a list of applicable genres. <br> <br>
+								Now, we have just one more step before the cool graphs, I promise! It is generally agreed that a movie must make 
+								<a href="https://gizmodo.com/how-much-money-does-a-movie-need-to-make-to-be-profitab-5747305#:~:text=a%20rule%20of%20thumb%20seems%20to%20be%20that%20the%20film%20needs%20to%20make%20twice%20its%20production%20budget%20globally." target="_blank">
+									twice it's budget in revenue to be profitable</a>, so I will be adding a column to denote whether a movie has passed this 
+									threshold. This is a slice of what our data looks like now that we're done processing it: 
+									<span class="image main"><img src="../../assets/images/box_office_analysis/head1.png" alt="" /></span>
+									Using this new feature, I can make a graph like this! Each yellow dot represents one profitiable movie, and each blue corresponds to one that didn't 
+									manage to make it's money back. I also plotted a line of best fit for all the data, represented in black. This tells us that there is a correlation 
+									positive between budget and revenue. I guess the old addage "you have to spend money to make money" is true when it comes to making movies! 
+							</p>
+							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/budget_vs_revenue.png" alt="" /></span>
+
+
+							<p style="margin: 0;">
+								Next, I decided to see how the runtime of a movie might affect it's revenue. Same as before, yellow is profitiable movies, and blue is unprofitable. When
+								I plotted these two groups and found the average runtime, I was surprised to find basically no difference! There is less than a minute difference between 
+								the two categories. This is when I decided to create a third section, comprised of the top 50 all time highest grossing movies, represented by the red dots. 
+								This is where the interesting number appears! The average runtime of the most successful movies was about 26 minutes longer than the average of all movies. So 
+								for any movie producers out there, aim for a 2 hours and 15 minute runtime! 
+							</p>
+							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/runtimes_vs_revenue.png" alt="" /></span>
+
+
+							<p style="margin: 0;">
+								The next feature I wanted to look at is the release date, specifically the month films were released in. I thought it would be fun to see how many 
+								movies succeeded and how many failed, so I plotted the two categories with a stacked bar chart. From there, it was a simple calculation to determine
+								the percentage of movies in each month that were profitable, which is written above each bar. I don't think it's a coincidence the two highest months 
+								correspond perfectly with summer break, or that the worst three months coincide with the start up of school. I guess Hollywood might be onto something
+								with the invention of the Summer blockbuster, huh? 
+							</p>
+							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/successful_movies_in_each_month.png" alt="" /></span>
+
+							<p style="margin: 0;">
+								Lastly, I looked at the genre and how that would affect a film's revenue. This feature gave me the most trouble, as each film has multiple genres 
+								associated with it. In the end, I found the best results by plotting the ratio of successful to unsuccessful movies in each genre, similar to the months 
+								above. With this analysis, I was able to determine the best genre to bet on a successful movie is Documentary, though that might be thrown off be the 
+								small sample size avaiable. The next best genre is Horror, which I found really interesting, not being a Horror fan myself. On the flip side, History, 
+								Westerns, Crime, and War Movies have less than a 50% chance of making their money back. So definitely avoid these genres if you're just looking to make 
+								a quick buck! 
+							</p>
+							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/successful_movies_in_each_genre.png" alt="" /></span>
+
+							<p style="margin: 0;">
+								So in conclusion, for all the movie producers who want to make some of their losses up, you should release a 2 hour and 15 minute Horror movie in June, 
+								and pump as much money into it as you can. 
+							</p>
+							<br>
+
+							<h3>Impact:</h3>
+							<p>
+								The impact of my study here is extremely minimal, as there are teams of professional level data scientists on staff who can tell these movie producers what 
+								has worked in the past to make money. Thankfully, movies are an art form. There will never been a formula to craft the most 'succesful' movie. Because if 
+								there was some perfect combination of factors, EVERY movie would fall into that niche. The people at the very top, who control and fund these projects are 
+								just looking for a return on their investment.  We would loose and variety and all passion, which will destroy the entire industry. 
+							</p>
+							<h3>References:</h3>
+							<ul>
+								<li>
+									<a href="https://kanoki.org/2020/08/30/matplotlib-scatter-plot-color-by-category-in-python/" target="_blank">How to create scatter plots with specific colors based on categories</a>
+								</li>
+								<li>
+									<a href="https://www.geeksforgeeks.org/filter-pandas-dataframe-with-multiple-conditions/#" target="_blank">How to filter a dataframe by multiple conditions with one command</a>
+								</li>
+								<li>
+									<a href="https://www.geeksforgeeks.org/create-a-stacked-bar-plot-in-matplotlib/#" target="_blank">How to create a stacked bar plot in Matplotlib</a>
+								</li>
+								<li>
+									<a href="https://www.pythoncharts.com/matplotlib/stacked-bar-charts-labels/" target="_blank">How to add labels to a stacked bar chart</a>
+								</li>
+								<li>
+									<a href="https://www.geeksforgeeks.org/plot-a-vertical-line-in-matplotlib/" target="_blank">How to plot vertical lines in Matplotlib</a>
+								</li>
+							</ul>
+
+							<h3>Project Code:</h3>
+							<ul>
+								<li>
+									<a href="box_office_notebook.html" target="_blank">Click here to view my code for this project!</a>
+								</li>
+								<li>
+									<a href="box_office_notebook.ipynb" target="_blank">Click here to download the Jupyter Notebook file!</a>
+								</li>
+							</ul>
+										
+						</div>
+					</div>
+			</div>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/portfolio.js"></script>
+			<script src="/path/to/highlight.min.js"></script>
+
+			<script>hljs.highlightAll();</script>
+
+	</body>
+</html>
