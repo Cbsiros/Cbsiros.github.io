@@ -5,8 +5,9 @@
 		<title>Box Office Trends</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="../../assets/css/write_up.css" />
-		<link rel="icon" href="../../assets/favicon.ico">
+		<link rel="stylesheet" href="../../assets/css/portfolio.css" />
+		<link rel="icon" href="../../images/favicon.ico">
+		<noscript><link rel="stylesheet" href="assets/css/portfolio_noscript.css" /></noscript>
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai-sublime.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -23,15 +24,17 @@
 					<div class="inner">
 
 						<!-- Home Link -->
-						<a href="../../#Portfolio"><i class="icon solid fa-long-arrow-alt-left fa-2x"></i></a>
+						<a href="../../portfolio.html"><i class="icon solid fa-long-arrow-alt-left fa-2x"></i></a>
 					</div>
 				</header>
 
 				<!-- Main -->
 					<div id="main">
 						<div class="blog">
-							<h1>Crafting the Most Successful Movie of All Time</h1>
-							<span class="image main"><img src="../../assets/images/box_office_analysis/movies_banner.jpg" alt="" /></span>
+							<h1>WALING THROUGH THE STARGATE</h1>
+							<span class="image main"><img src="../../images/movie_analysis/movies_banner.jpg" alt="" /></span>
+							
+							<iframe src="Test.html" height="800" width="1200"></iframe>
 
 							<p>The years of 2022 and 2023 will haunt the nightmares of major movie studios for decades to come. Not only are two unions striking (effectively grinding 
 								the industry to a halt), a record number of movie releases have failed to turn a profit. It's estimated that Disney has lost 
@@ -88,7 +91,7 @@
 								<li><b>popularity:</b> A score given by the database which represents acclaim. While this sounds beneficial, we only care about profitibility in this 
 									experiment, not popularity. </li>
 								<li><b>production_companies:</b> A list of production companies involved in each film. Our perfect film should be studio-independent, so that anyone can 
-									profit from the work done here.</li>
+									profit from the work done here. &#128521;</li>
 								<li><b>status:</b> Indicates whether the movie has been released, is planned, has been cancelled, etc. As discussed, we can now drop this column due to 
 									it only containing released movies. </li>
 								<li><b>tagline:</b> The tagline of the movie. (Who could have guessed?) I'm already telling Hollywood how to make the perfect movie, I'm not marketing it 
@@ -111,12 +114,12 @@
 								<a href="https://gizmodo.com/how-much-money-does-a-movie-need-to-make-to-be-profitab-5747305#:~:text=a%20rule%20of%20thumb%20seems%20to%20be%20that%20the%20film%20needs%20to%20make%20twice%20its%20production%20budget%20globally." target="_blank">
 									twice it's budget in revenue to be profitable</a>, so I will be adding a column to denote whether a movie has passed this 
 									threshold. This is a slice of what our data looks like now that we're done processing it: 
-									<span class="image main"><img src="../../assets/images/box_office_analysis/head1.png" alt="" /></span>
+									<span class="image main"><img src="../../images/movie_analysis/head1.png" alt="" /></span>
 									Using this new feature, I can make a graph like this! Each yellow dot represents one profitiable movie, and each blue corresponds to one that didn't 
 									manage to make it's money back. I also plotted a line of best fit for all the data, represented in black. This tells us that there is a correlation 
 									positive between budget and revenue. I guess the old addage "you have to spend money to make money" is true when it comes to making movies! 
 							</p>
-							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/budget_vs_revenue.png" alt="" /></span>
+							<span class="image center graph" ><img src="../../images/movie_analysis/budget_vs_revenue.png" alt="" /></span>
 
 
 							<p style="margin: 0;">
@@ -126,7 +129,7 @@
 								This is where the interesting number appears! The average runtime of the most successful movies was about 26 minutes longer than the average of all movies. So 
 								for any movie producers out there, aim for a 2 hours and 15 minute runtime! 
 							</p>
-							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/runtimes_vs_revenue.png" alt="" /></span>
+							<span class="image center graph" ><img src="../../images/movie_analysis/runtimes_vs_revenue.png" alt="" /></span>
 
 
 							<p style="margin: 0;">
@@ -136,7 +139,7 @@
 								correspond perfectly with summer break, or that the worst three months coincide with the start up of school. I guess Hollywood might be onto something
 								with the invention of the Summer blockbuster, huh? 
 							</p>
-							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/successful_movies_in_each_month.png" alt="" /></span>
+							<span class="image center graph" ><img src="../../images/movie_analysis/successful_movies_in_each_month.png" alt="" /></span>
 
 							<p style="margin: 0;">
 								Lastly, I looked at the genre and how that would affect a film's revenue. This feature gave me the most trouble, as each film has multiple genres 
@@ -146,7 +149,7 @@
 								Westerns, Crime, and War Movies have less than a 50% chance of making their money back. So definitely avoid these genres if you're just looking to make 
 								a quick buck! 
 							</p>
-							<span class="image center graph" ><img src="../../assets/images/box_office_analysis/successful_movies_in_each_genre.png" alt="" /></span>
+							<span class="image center graph" ><img src="../../images/movie_analysis/successful_movies_in_each_genre.png" alt="" /></span>
 
 							<p style="margin: 0;">
 								So in conclusion, for all the movie producers who want to make some of their losses up, you should release a 2 hour and 15 minute Horror movie in June, 
@@ -181,18 +184,13 @@
 							</ul>
 
 							<h3>Project Code:</h3>
-							<ul>
-								<li>
-									<a href="box_office_notebook.html" target="_blank">Click here to view my code for this project!</a>
-								</li>
-								<li>
-									<a href="box_office_notebook.ipynb" target="_blank">Click here to download the Jupyter Notebook file!</a>
-								</li>
-							</ul>
+							<a href="../../projects/movie_analysis/Analyzing Box Office Trends.html" target="_blank">Click here to see my Jupyter Notebook for this project!</a>
+						
 										
 						</div>
 					</div>
-			</div>
+		</div>
+
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
